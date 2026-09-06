@@ -1007,5 +1007,56 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
     });
+           }
+
+    });
+
+
+    /* =====================================================
+       QUOTE FORM -> WHATSAPP
+    ===================================================== */
+
+    const quoteForm = document.querySelector("#quoteForm");
+
+    if (quoteForm) {
+
+        quoteForm.addEventListener("submit", (event) => {
+
+            event.preventDefault();
+
+            const name =
+                document.querySelector("#name").value.trim();
+
+            const phone =
+                document.querySelector("#phone").value.trim();
+
+            const email =
+                document.querySelector("#email").value.trim();
+
+            const service =
+                document.querySelector("#service").value;
+
+            const message =
+                document.querySelector("#message").value.trim();
+
+            const quoteMessage =
+                `NEW POOL SERVICE REQUEST
+
+Name: ${name}
+Phone: ${phone}
+Email: ${email || "Not provided"}
+Service: ${service}
+Message: ${message || "No additional message"}`;
+
+            const quoteURL =
+                `https://wa.me/${phoneNumber}?text=${encodeURIComponent(quoteMessage)}`;
+
+            window.open(quoteURL, "_blank");
+
+        });
+
+    }
+
+});
 
 });
