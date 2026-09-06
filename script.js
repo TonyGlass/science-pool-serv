@@ -967,7 +967,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    /* =====================================================
+    
+           /* =====================================================
        FREE QUOTE BUTTONS -> CONTACT
     ===================================================== */
 
@@ -1007,16 +1008,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
     });
-           }
-
-    });
 
 
     /* =====================================================
        QUOTE FORM -> WHATSAPP
     ===================================================== */
 
-    const quoteForm = document.querySelector("#quoteForm");
+    const quoteForm =
+        document.querySelector("#quoteForm");
 
     if (quoteForm) {
 
@@ -1056,7 +1055,5 @@ Message: ${message || "No additional message"}`;
         });
 
     }
-
-});
 
 });
