@@ -1050,7 +1050,7 @@ Message: ${message || "No additional message"}`;
             const quoteURL =
                 `https://wa.me/${phoneNumber}?text=${encodeURIComponent(quoteMessage)}`;
 
-            window.open(quoteURL, "_blank");
+           window.location.href = quoteURL;
 
         });
 
