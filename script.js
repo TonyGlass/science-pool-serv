@@ -20,6 +20,96 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
+       MOBILE MENU
+    ===================================================== */
+
+    const menuToggle = document.getElementById("menuToggle");
+    const mainNav = document.getElementById("mainNav");
+
+    if (menuToggle && mainNav) {
+
+        menuToggle.addEventListener("click", () => {
+
+            const isOpen = mainNav.classList.toggle("active");
+
+            menuToggle.classList.toggle("active", isOpen);
+            menuToggle.setAttribute("aria-expanded", String(isOpen));
+
+        });
+
+        mainNav.querySelectorAll("a").forEach(link => {
+
+            link.addEventListener("click", () => {
+
+                mainNav.classList.remove("active");
+                menuToggle.classList.remove("active");
+                menuToggle.setAttribute("aria-expanded", "false");
+
+            });
+
+        });
+
+    }
+
+
+    /* =====================================================
+       CONTACT FORM -> WHATSAPP
+    ===================================================== */
+
+    const quoteForm = document.getElementById("quoteForm");
+
+    if (quoteForm) {
+
+        quoteForm.addEventListener("submit", (event) => {
+
+            event.preventDefault();
+
+            const name = document.getElementById("name").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const service = document.getElementById("service").value.trim();
+            const message = document.getElementById("message").value.trim();
+
+            if (!name || !phone || !service) {
+                return;
+            }
+
+            const lines = [
+                "Hola SCIENCE POOL SERV, quisiera solicitar una cotización.",
+                `Nombre: ${name}`,
+                `Teléfono: ${phone}`,
+                service ? `Servicio: ${service}` : null,
+                email ? `Email: ${email}` : null,
+                message ? `Mensaje: ${message}` : null,
+            ].filter(Boolean);
+
+            const formWhatsappURL =
+                `https://wa.me/${phoneNumber}?text=${encodeURIComponent(lines.join("\n"))}`;
+
+            let confirmation = document.getElementById("formConfirmation");
+
+            if (!confirmation) {
+
+                confirmation = document.createElement("p");
+                confirmation.id = "formConfirmation";
+                confirmation.className = "form-confirmation";
+                quoteForm.appendChild(confirmation);
+
+            }
+
+            confirmation.textContent =
+                "¡Gracias! Te estamos redirigiendo a WhatsApp para finalizar tu solicitud.";
+
+            window.open(formWhatsappURL, "_blank", "noopener,noreferrer");
+
+            quoteForm.reset();
+
+        });
+
+    }
+
+
+    /* =====================================================
        CHATBOT HTML
     ===================================================== */
 
@@ -967,8 +1057,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    
-           /* =====================================================
+    /* =====================================================
        FREE QUOTE BUTTONS -> CONTACT
     ===================================================== */
 
@@ -1008,52 +1097,5 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
     });
-
-
-    /* =====================================================
-       QUOTE FORM -> WHATSAPP
-    ===================================================== */
-
-    const quoteForm =
-        document.querySelector("#quoteForm");
-
-    if (quoteForm) {
-
-        quoteForm.addEventListener("submit", (event) => {
-
-            event.preventDefault();
-
-            const name =
-                document.querySelector("#name").value.trim();
-
-            const phone =
-                document.querySelector("#phone").value.trim();
-
-            const email =
-                document.querySelector("#email").value.trim();
-
-            const service =
-                document.querySelector("#service").value;
-
-            const message =
-                document.querySelector("#message").value.trim();
-
-            const quoteMessage =
-                `NEW POOL SERVICE REQUEST
-
-Name: ${name}
-Phone: ${phone}
-Email: ${email || "Not provided"}
-Service: ${service}
-Message: ${message || "No additional message"}`;
-
-            const quoteURL =
-                `https://wa.me/${phoneNumber}?text=${encodeURIComponent(quoteMessage)}`;
-
-           window.location.href = quoteURL;
-
-        });
-
-    }
 
 });

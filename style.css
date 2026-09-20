@@ -13,6 +13,14 @@ html {
     scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+
+    .whatsapp-button {
+        animation: none;
+    }
+
+}
+
 body {
     font-family: "Manrope", sans-serif;
     color: #173b68;
@@ -144,6 +152,47 @@ select {
 
 
 /* =========================================================
+   MOBILE MENU TOGGLE
+========================================================= */
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+
+    width: 40px;
+    height: 40px;
+    padding: 0;
+
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    border-radius: 3px;
+    background: #123b6d;
+    transition: 0.25s ease;
+}
+
+.menu-toggle.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+
+/* =========================================================
    HERO
 ========================================================= */
 
@@ -162,7 +211,7 @@ select {
             rgba(7, 60, 100, 0.68),
             rgba(7, 60, 100, 0.30)
         ),
-        url("https://images.unsplash.com/photo-1572331165267-854da2b10ccc?auto=format&fit=crop&w=2200&q=85")
+        url("images/hero-background.jpg")
         center / cover no-repeat;
 }
 
@@ -477,6 +526,19 @@ select {
     letter-spacing: 1px;
 }
 
+.image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.image-placeholder img.contain-fit {
+    object-fit: contain;
+    background: #0c3159;
+}
+
 .gallery-label {
     position: absolute;
     bottom: 0;
@@ -493,6 +555,72 @@ select {
     color: white;
     font-size: 14px;
     font-weight: 800;
+}
+
+
+/* =========================================================
+   VIDEOS IN ACTION
+========================================================= */
+
+.videos {
+    background: #f7fbfd;
+}
+
+.video-grid {
+    max-width: 1250px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.tiktok-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+}
+
+.tiktok-follow {
+    margin: 35px auto 0;
+    text-align: center;
+}
+
+.secondary-button.dark {
+    display: inline-flex;
+    border: 1px solid #dce8ef;
+    color: #123b6d;
+    background: white;
+}
+
+.secondary-button.dark:hover {
+    background: #123b6d;
+    color: white;
+}
+
+.video-card {
+    overflow: hidden;
+    border-radius: 18px;
+    background: #0c3159;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+.video-card video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    max-height: 640px;
+    object-fit: cover;
+    background: #0c3159;
+}
+
+@media (max-width: 760px) {
+
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
+
 }
 
 
@@ -539,6 +667,28 @@ select {
 
 .contact {
     background: #f7fbfd;
+}
+
+.contact-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px 30px;
+    margin-bottom: 40px;
+}
+
+.contact-info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #123b6d;
+    font-size: 16px;
+    font-weight: 700;
+    transition: 0.2s ease;
+}
+
+a.contact-info-item:hover {
+    color: #29bde9;
 }
 
 .contact-form {
@@ -592,6 +742,13 @@ select {
     border: none;
 }
 
+.form-confirmation {
+    text-align: center;
+    color: #12b76a;
+    font-weight: 700;
+    font-size: 15px;
+}
+
 
 /* =========================================================
    WHATSAPP
@@ -599,7 +756,7 @@ select {
 
 .whatsapp-button {
     position: fixed;
-    right: 20px;
+    left: 20px;
     bottom: 20px;
 
     z-index: 2000;
@@ -621,11 +778,30 @@ select {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 
     transition: 0.25s ease;
+
+    animation: whatsapp-pulse 2.6s ease-in-out infinite;
 }
 
 .whatsapp-button:hover {
     transform: translateY(-3px);
     background: #0da85f;
+    animation-play-state: paused;
+}
+
+@keyframes whatsapp-pulse {
+
+    0%, 100% {
+        box-shadow:
+            0 10px 30px rgba(0, 0, 0, 0.2),
+            0 0 0 0 rgba(18, 183, 106, 0.55);
+    }
+
+    50% {
+        box-shadow:
+            0 10px 30px rgba(0, 0, 0, 0.2),
+            0 0 0 14px rgba(18, 183, 106, 0);
+    }
+
 }
 
 .whatsapp-icon {
@@ -726,6 +902,10 @@ select {
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .video-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
 }
 
 
@@ -753,12 +933,40 @@ select {
     }
 
     .navigation {
-        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+
+        max-height: 0;
+        overflow: hidden;
+
+        background: white;
+        box-shadow: 0 15px 25px rgba(0, 30, 70, 0.1);
+
+        transition: max-height 0.3s ease;
+    }
+
+    .navigation.active {
+        max-height: 400px;
+    }
+
+    .navigation a {
+        padding: 16px 22px;
+        border-top: 1px solid #eef4f8;
     }
 
     .quote-button {
         padding: 11px 16px;
         font-size: 13px;
+    }
+
+    .menu-toggle {
+        display: flex;
     }
 
     .hero {
@@ -833,7 +1041,7 @@ select {
     }
 
     .whatsapp-button {
-        right: 15px;
+        left: 15px;
         bottom: 15px;
         padding: 14px 18px;
     }
